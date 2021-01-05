@@ -1,0 +1,337 @@
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[10pt]{article}
+\usepackage{lipsum} % Package to generate dummy text throughout this template
+
+%\usepackage[light, math]{iwona}
+%\usepackage[sc]{mathpazo} % Use the Palatino font
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\linespread{1.05} % Line spacing - Palatino needs more space between lines
+\usepackage{microtype} % Slightly tweak font spacing for aesthetics
+
+\usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt]{geometry} % Document margins
+\usepackage{multicol} % Used for the two-column layout of the document
+\usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption} % Custom captions under/above floats in tables or figures
+\usepackage{booktabs} % Horizontal rules in tables
+\usepackage{float} % Required for tables and figures in the multi-column environment - they need to be placed in specific locations with the [H] (e.g. \begin{table}[H])
+
+\usepackage{lettrine} % The lettrine is the first enlarged letter at the beginning of the text
+\usepackage{paralist} % Used for the compactitem environment which makes bullet points with less space between them
+
+\usepackage{abstract} % Allows abstract customization
+\renewcommand{\abstractnamefont}{\normalfont\bfseries} % Set the "Abstract" text to bold
+\renewcommand{\abstracttextfont}{\normalfont\small\itshape} % Set the abstract itself to small italic text
+
+\usepackage{titlesec} % Allows customization of titles
+\renewcommand\thesection{\Roman{section}} % Roman numerals for the sections
+\renewcommand\thesubsection{\Roman{subsection}} % Roman numerals for subsections
+\titleformat{\section}[block]{\large\scshape\centering}{\thesection.}{1em}{} % Change the look of the section titles
+\titleformat{\subsection}[block]{\large}{\thesubsection.}{1em}{} % Change the look of the section titles
+
+\usepackage{fancybox, fancyvrb, calc}
+\usepackage[svgnames]{xcolor}
+
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT ID (Department, Professor, Course, etc.) 
+%----------------------------------------------------------------------------------------
+
+\usepackage{fancyhdr} % Headers and footers
+\pagestyle{fancy} % All pages have headers and footers
+\fancyhead{} % Blank out the default header
+\fancyfoot{} % Blank out the default footer
+\fancyhead[C]{Regression Discontinuity Designs: Sharp} % Custom header text
+\fancyfoot[RO,LE]{\thepage} % Custom footer text
+
+%----------------------------------------------------------------------------------------
+%	MY PACKAGES 
+%----------------------------------------------------------------------------------------
+
+\usepackage{amsmath}	
+\usepackage[makeroom]{cancel}
+%\usepackage{rotating}
+\usepackage{textcomp}
+\usepackage{caption}
+\usepackage{etex}
+%\usepackage[export]{adjustbox}
+%\usepackage{afterpage}
+%\usepackage{filecontents}
+\usepackage{color}
+\usepackage{latexsym}
+\usepackage{lscape}				%\begin{landscape} and \end{landscape}
+\usepackage{amsfonts}
+%\usepackage{mathabx}
+\usepackage{amssymb}
+%\usepackage{dashrule}
+%\usepackage{txfonts}
+%\usepackage{pgfkeys}
+%\usepackage{framed}
+\usepackage{tree-dvips}
+\usepackage{caption}
+%\usepackage{fancyvrb}
+%\usepackage{pgffor}
+\usepackage{xcolor}
+%\usepackage{pxfonts}
+\usepackage{wasysym}
+\usepackage{authblk}
+%\usepackage{paracol}
+\usepackage{setspace}
+%\usepackage{qtree}
+%\usepackage{tree-dvips}
+\usepackage{sgame}				% shouldn't have neither array nor tabularx packages
+\usepackage{tikz}
+%\usetikzlibrary{trees}
+\usepackage[latin1]{inputenc}
+%\label{tab:1} 		%\autoref{tab:1}	%ocupar para citar.
+% \hyperlik{table1}	\hypertarget{table1} 
+% \textquoteright			%apostrofe
+\usepackage{hyperref} 		%desactivar para link rojos
+\usepackage{natbib}
+%\usepackage{proof} 			%for proofs
+
+
+
+
+
+%----------------------------------------------------------------------------------------
+%	Other ADDS-ON
+%----------------------------------------------------------------------------------------
+
+% independence symbol \independent
+\newcommand\independent{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+
+
+% VERBATIM WITH BACKGROUND COLOR
+\newenvironment{colframe}{%
+  \begin{Sbox}
+    \begin{minipage}
+      {\columnwidth%-\leftmargin-\rightmargin-6pt
+      }
+    }{%
+    \end{minipage}
+  \end{Sbox}
+  \begin{center}
+    \colorbox{LightSteelBlue}{\TheSbox}
+  \end{center}
+}
+
+
+\hypersetup{
+    bookmarks=true,         % show bookmarks bar?
+    unicode=false,          % non-Latin characters in Acrobat$'$s bookmarks
+    pdftoolbar=true,        % show Acrobat$'$s toolbar?
+    pdfmenubar=true,        % show Acrobat$'$s menu?
+    pdffitwindow=false,     % window fit to page when opened
+    pdfstartview={FitH},    % fits the width of the page to the window
+    pdftitle={My title},    % title
+    pdfauthor={Author},     % author
+    pdfsubject={Subject},   % subject of the document
+    pdfcreator={Creator},   % creator of the document
+    pdfproducer={Producer}, % producer of the document
+    pdfkeywords={keyword1} {key2} {key3}, % list of keywords
+    pdfnewwindow=true,      % links in new window
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=ForestGreen,          % color of internal links (change box color with linkbordercolor)
+    citecolor=ForestGreen,        % color of links to bibliography
+    filecolor=ForestGreen,      % color of file links
+    urlcolor=ForestGreen           % color of external links
+}
+
+
+% PROPOSITIONS
+\newtheorem{proposition}{Proposition}
+
+%\linespread{1.5}
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+%\title{\vspace{-15mm}\fontsize{18pt}{7pt}\selectfont\textbf{Experimental Economists and Psychologists: Two Worlds Apart}} % Article title
+
+%\author[1]{
+%\large
+%\textsc{H\'ector Bahamonde}\\ 
+%\thanks{}
+%\normalsize Political Science Dpt. $\bullet$ Rutgers University \\ % Your institution
+%\normalsize \texttt{e:}\href{mailto:hector.bahamonde@rutgers.edu}{\texttt{hector.bahamonde@rutgers.edu}}\\
+%\normalsize \texttt{w:}\href{http://www.hectorbahamonde.com}{\texttt{www.hectorbahamonde.com}}
+%\vspace{-5mm}
+%}
+%\date{\today}
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+%\maketitle % Insert title
+
+
+\thispagestyle{fancy} % All pages have headers and footers
+
+%----------------------------------------------------------------------------------------
+%	ABSTRACT
+%----------------------------------------------------------------------------------------
+
+%\begin{abstract}
+%	ABSTRACT
+%\end{abstract}
+
+
+%----------------------------------------------------------------------------------------
+%	CONTENT
+%----------------------------------------------------------------------------------------
+
+%\graphicspath{
+%{/Users/hectorbahamonde/RU/Term5/Experiments_Redlawsk/Experiment/Data/}
+%}
+\hspace{-5mm}{\bf Profesor}: H\'ector Bahamonde.\\
+\texttt{e:}\href{mailto:hector.bahamonde@uoh.cl}{\texttt{hector.bahamonde@uoh.cl}}\\
+\texttt{w:}\href{http://www.hectorbahamonde.com}{\texttt{www.hectorbahamonde.com}}
+
+\section*{Regression Discontinuity Designs (RDDs)---Sharp Designs}
+
+La idea de este m\'etodo es poder imitar RCTs (\emph{randomized control trials}). Su foco es poder imitar la asignaci\'on aleatoria de un tratamiento experimental, particularmente, en lo que respecta a la construcci\'on ``{\bf te\'orica}'' de un grupo \emph{pre-treatment} y otro \emph{post-treatment}. Sin embargo, la asignaci\'on a tratamiento \emph{no} es aleatoria, si no que depende de otras variables.
+\\
+\\
+Imagina el siguiente problema. Supongamos que queremos saber el efecto que tuvo una pol\'itica p\'ublica. Qu\'e herramientas econom\'etricas podr\'ias usar para simular un efecto causal del tratamiento?
+
+Partiremos pensando en una equaci\'on lineal, donde nuevamente $z$ es nuestro (cuasi) tratamiento. La variable $z$ es binaria [0, 1] y representa si la observaci\'on $i$ fue tratada $z(1)$ o no $z(0)$. Como en todos los supuestos de la inferencia causal, el promedio de los {\bf observables} de $i(1)$ y $i(0)$ son iguales. Veamos la ecuaci\'on:
+
+\begin{equation}\label{eq:1}
+y_{i} \;=\; \beta_{0} + \beta_{1}x_{i} + \pi z_{i} + \rho x_{i}z_{i} + \epsilon_{i}
+\end{equation}
+
+donde $y_{i}$ es la variable dependiente, $\beta_{0}$ es el intercepto y $\epsilon_{i}$ es el residuo para la observaci\'on $i$. Adem\'as, $\beta_{1}$ es el efecto asociado a cierta variable de control $x$. Importantemente, existen dos maneras de ver (cuasi) causalidad en \autoref{eq:1}:
+
+\begin{enumerate}
+	\item {\bf ``Cambio en el intercepto''}: Se observa al ver el efecto y significancia de $\pi$ que es el par\'ametro a estimar asociado al tratamiento (o ``intercepto'') $z$. Considera que un dise\~no RDD tambi\'en denomina ``intercepto'' a la variable $z$ (adem\'as de $\beta_{0}$). Esto es correcto toda vez que \emph{un} intercepto es el valor asociado a cuando todos los $x's $ son cero. De hecho, cuando estudiemos \emph{fixed effects}, veremos que es posible estimar muchos interceptos. En el caso de los RDD, s\'olo estimamos un intercepto adicional ($z$).
+
+	\item  {\bf ``Cambio en el slope/pendiente''}: este se observa al ver el par\'ametro $\rho$ que representa al efecto estimado \emph{combinado} de la variable tratamiento $z$ {\bf y} la variable control $x$. Matem\'aticamente, esto significa que tendremos un par\'ametro asociado a un {\bf t\'ermino de interacci\'on} de la siguiente forma: $\rho(x_{i}\times z_{i})$. 
+\end{enumerate}
+
+\subsection*{T\'erminos de Interacci\'on}
+
+Se usan cuando queremos saber el efecto combinado de dos variables. Por ejemplo, si quisi\'eramos saber cu\'al es el efecto que tiene \emph{g\'enero} ($x_{1}$) {\bf y} (esto es, en {\bf combinaci\'on con}) \emph{educaci\'on} ($x_{2}$) sobre \emph{ingresos} ($y_{i}$), deber\'iamos estimar la siguiente ecuaci\'on:
+
+		\begin{equation}\label{eq:int:term}
+			\text{ingresos}_{i} \;=\; \beta_{0} + \beta_{1}\text{g\'enero}_{i} + \beta_{2}\text{educaci\'on}_{i} + \beta_{3}{\text{g\'enero}}_{i}\times \text{educaci\'on}_{i} + \epsilon_{i}
+		\end{equation}
+
+F\'ijate que cada vez que incluimos un t\'ermino de interacci\'on (${\text{g\'enero}}_{i}\times \text{educaci\'on}_{i}$), para interpretar su par\'ametro asociado ($\beta_{3}$), es necesario incluir los sub-t\'erminos por separados. Esto es, permitir que la ecuaci\'on tenga un par\'ametro independiente asociado a \emph{g\'enero} y \emph{educaci\'on}, esto es, $\beta_{1}$ y $\beta_{2}$ (tal y como aparece en \autoref{eq:int:term}). Si estimamos s\'olo la siguiente ecuaci\'on, $\beta_{3}$ estar\'a sesgado. {\bf NO HAGAS LO SIGUIENTE}:
+
+
+		\begin{equation}\label{eq:int:term:mala}
+			\text{ingresos}_{i} \;=\; \beta_{0} + \beta_{3}{\text{g\'enero}}_{i}\times \text{educaci\'on}_{i} + \epsilon_{i}
+		\end{equation}
+
+Debido a que los efectos (cuasi) causales en los RDDs son (matem\'aticamente hablando) t\'erminos de interacci\'on, era necesario saber qu\'e es lo que eran. Ahora que sabemos lo que es un t\'ermino de interacci\'on, volvamos a los RDD y sus supuestos.
+
+\subsection*{Supuestos}
+
+\begin{enumerate}
+	\item {\bf Criterio de corte}. Es importante tomar en cuenta que $z$ {\bf no} est\'a asignado aleatoriamente. En otras palabras, la {\bf discontinuidad} que pudiera existir en $x$ \emph{no} es debido a $z$, sino que {\bf solamente} a $x$---y este es el supuesto. Esto no es precisamente una desventaja. Al contrario, te permite evaluar el efecto de $x$ sobre $y$ en dos grupos distintos ($y(1)$ y $z(0)$). 
+	\\
+	En un experimento propiamente tal, $z$ siempre es aleatorio. En nuestro mundo observacional, sin embargo, esto no es el caso.
+
+	\item {\bf La relaci\'on entre $x$ e $y$ no es mejor explicada por una funcion polynomial} (Fig. 6.1.1 en \emph{Mostly Harmless Econometrics}). El ``salto'' que se produce en $y$ al cambiar de $z(0)$ a $z(1)$ es mejor explicado por $z$ mismo que por ejemplo, una funci\'on polynomial. Esto es, con interacciones, tal y como en \autoref{eq:int:term}, pero esta vez, la variable es multiplicada por s\'i misma (como en \autoref{eq:2}). Un ejemplo de una regresi\'on polynomial permite curvas en la linea, y en general se ven as\'i:
+
+		\begin{equation}\label{eq:2}
+			y_{i} \;=\; \beta_{0} + \beta_{1}x_{i} + \beta_{2}(x_{i})^2 + \epsilon_{i}
+		\end{equation}
+
+	\item {\bf La variable $x$ es continua}. 
+\end{enumerate}
+
+\subsection*{Preparaci\'on}
+
+
+Si todos estos supuestos se cumplen, debemos seguir los siguientes pasos:
+
+\begin{enumerate}
+	\item {\bf Transformar los datos}. M\'as formalmente, esto quiere decir que debemos manipular $x$. En otras palabras, debemos acercar la distribuci\'on hacia el eje Y---hacia el intercepto. Esto se hace mediante la siguiente sustracci\'on: $x_{i}-x_{\text{corte}}$. De esta manera, cualquier efecto (cuasi) causal se observar\'a respecto al ``alejamiento'' del eje Y (es decir, del intercepto).
+	\item {\bf Convertir $z$ en una dummy [0,1]}. 
+	\item {\bf Inspecci\'on visual} entre $x$, $y$ y $z$. \emph{Plotear} distribuciones.
+	\item {\bf Estimar modelo general \autoref{eq:1}}.
+\end{enumerate}
+
+\subsection*{Estimaci\'on}
+
+
+Realizando estos pasos, deberemos estimar la siguiente ecuaci\'on:
+
+		\begin{equation}\label{eq:3}
+			y_{i} \;=\; \beta_{0} + \beta_{1}(x_{i}-x_{\text{corte}}) + \pi z_{i} + \rho_{2}(x_{i}-x_{\text{corte}}) \times z_{i} +  \epsilon_{i}
+		\end{equation}
+
+Estimaremos este modelo general en los siguientes ejercicios en el \texttt{R} \emph{script}.
+
+\section*{``Cambio en el intercepto'' ($\pi$)}
+
+Si te fijas, \label{eq:3} contiene dos resultados diferentes (que se pueden ver en el output de \texttt{R}). La siguiente ecuaci\'on nos muestra un resultado para $z(1)$ y otro para $z(0)$.
+
+\begin{equation} \label{eq:4}
+\begin{split}
+y_{i} & = \beta_{0} + \beta_{1}(x_{i}-x_{\text{corte}}) + \pi(0) + \rho_{2}(x_{i}-x_{\text{corte}}) \times 0 +  \epsilon_{i} \\
+y_{i} & = \beta_{0} + \beta_{1}(x_{i}-x_{\text{corte}}) + \pi(1) + \rho_{2}(x_{i}-x_{\text{corte}}) \times 1 +  \epsilon_{i}
+\end{split}
+\end{equation}
+
+lo que en n\'umeros significa,
+
+\begin{equation} \label{eq:4}
+\begin{split}
+y_{i}(0) &= 54.716 + 5.365(x_{i}-10.5) + \cancel{46.459\times(0)} + \cancel{(-1.101)(x_{i}-10.5) \times (0)} +  \epsilon_{i} \\
+y_{i}(1) &= 54.716 + 5.365(x_{i}-10.5) + 46.459\times(1) + (-1.101)(x_{i}-10.5) \times (1) +  \epsilon_{i}
+\end{split}
+\end{equation}
+
+
+Recuerda que $10.5$ equivale al corte. Es claro ver que \autoref{eq:4} nos muestra el pre-treatment $z(0)$ y el post-treatment $z(1)$. Y eso se ve reflejado en el \emph{output} de \texttt{R}. Si estamos interesados en observar el intercepto $z$, debemos observar el efecto y significancia de $\pi=54.716$, que es altamente significativa. Podemos concluir que hay evidencia suficiente para sugerir que existe un cambio estad\'isticamente significativo en el intercepto.
+
+Hasta ahora, hemos analizado $\pi$. Examinemos $\rho$.
+
+
+\section*{``Cambio en el slope/pendiente'' ($\rho$)}
+
+Otra manera de ver el efecto (cuasi) causal de \autoref{eq:1}, es observar el par\'ametro $\rho$ que est\'a asociado al t\'ermino de interacci\'on $(x_{i}\times z_{i})$. Es importante que entiendas que matem\'aticamente el par\'ametro  $\rho$ es una multiplicaci\'on entre $x_{i}$ (vector) y $z$ (escalar, 0's y 1's)---en \texttt{R} aparece como \texttt{I(x - corte):z1}.
+
+
+\subsection*{Por Qu\'e Esta T\'ecnica Es (Cuasi) Experimental?}
+
+\begin{enumerate}
+	\item Observaciones no saben con anticipaci\'on d\'onde ser\'a el corte.
+	\item {\bf Supuesto de exogeneidad de $z$ a medida que nos acercamos al corte en $x$}.  Similitud de caracter\'isticas observables en $x$. Pero p\'erdida de eficiencia estad\'istica.
+\end{enumerate}
+
+
+\subsection*{Estimador}
+
+En ambas llegadas, tanto $\pi$ como $\rho$ es el ATT, o \emph{average treatment effect on the treated}.
+
+M\'as formalmente, el ATT es definido como,
+
+\begin{equation} \label{att}
+\begin{split}
+E[\delta | z = 1] &= E[y_{1} - y_{0} | z = 1] \\
+                 &= E[y_{1} | z = 1] - E[y_{0} | z = 1]
+\end{split}
+\end{equation}
+
+En palabras, el efecto causal esperado $\delta$ una vez que el tratamiento $z_{1}$ es administrado. $E[\delta | z = 1]$ es la diferencia entre entre aquellos individuos $y_{1}$ que s\'i se les administr\'o el tratamiento $z_{1}$ y aquellos individuos $y_{0}$ a quienes se les \emph{hubiera administrado} el tratamiento $z_{1}$ ($E[y_{0} | z = 1]$); esta \'ultima parte es el \emph{contrafacual}). Obviamente $E[y_{0} | z = 1]$ no es observado. 
+
+Debido a que existe ``\emph{perfect compliance}'', es posible igualar el \emph{ATT} con el \emph{ATE}, que es el \emph{average treatment effect}, y computar: $E[y_{1}|z=1]-E[y_{0}|z=0]$ (que se reduce a un test de medias).
+
+
+
+
+
+\end{document}
+
+https://conjointly.com/kb/regression-discontinuity-analysis/
+https://dimewiki.worldbank.org/wiki/Regression_Discontinuity
+https://rpubs.com/cuborican/RDD
+https://stats.stackexchange.com/questions/308397/why-is-average-treatment-effect-different-from-average-treatment-effect-on-the-t

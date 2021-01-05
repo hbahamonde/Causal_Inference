@@ -1,0 +1,376 @@
+\documentclass[onesided]{article}
+\usepackage[T1]{fontenc}
+\linespread{1.5} % Line spacing - Palatino needs more space between lines
+\usepackage{microtype} % Slightly tweak font spacing for aesthetics
+
+\usepackage[hmarginratio=1:1,columnsep=20pt]{geometry} % Document margins
+%\usepackage{multicol} % Used for the two-column layout of the document
+\usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption} % Custom captions under/above floats in tables or figures
+\usepackage{booktabs} % Horizontal rules in tables
+\usepackage{float} % Required for tables and figures in the multi-column environment - they need to be placed in specific locations with the [H] (e.g. \begin{table}[H])
+
+\usepackage{lettrine} % The lettrine is the first enlarged letter at the beginning of the text
+\usepackage{paralist} % Used for the compactitem environment which makes bullet points with less space between them
+
+% to ignore texts: good for thank messages and paper submissions.
+      % \fbox{\phantom{This text will be invisible too, but a box will be printed arround it.}}
+
+\usepackage{abstract} % Allows abstract customization
+\renewcommand{\abstractnamefont}{\normalfont\bfseries} % Set the "Abstract" text to bold
+%\renewcommand{\abstracttextfont}{\normalfont\small\itshape} % Set the abstract itself to small italic text
+
+\usepackage[]{titlesec} % Allows customization of titles
+\renewcommand\thesection{\Roman{section}} % Roman numerals for the sections
+\renewcommand\thesubsection{\Roman{subsection}} % Roman numerals for subsections
+\titleformat{\section}[block]{\large\scshape\centering}{\thesection.}{1em}{} % Change the look of the section titles
+\titleformat{\subsection}[block]{\large}{\thesubsection.}{1em}{} % Change the look of the section titles
+
+\usepackage{fancybox, fancyvrb, calc}
+\usepackage[svgnames]{xcolor}
+\usepackage{epigraph}
+\usepackage{longtable}
+\usepackage{pdflscape}
+\usepackage{graphics}
+\usepackage{pbox} % \pbox{20cm}{This is the first \\ cell}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{rotating}
+\usepackage{paracol}
+\usepackage{textcomp}
+\usepackage[export]{adjustbox}
+\usepackage{afterpage}
+\usepackage{filecontents}
+\usepackage{color}
+\usepackage{latexsym}
+\usepackage{lscape}       %\begin{landscape} and \end{landscape}
+\usepackage{wasysym}
+\usepackage{dashrule}
+
+\usepackage{framed}
+\usepackage{tree-dvips}
+\usepackage{pgffor}
+\usepackage[]{authblk}
+\usepackage{setspace}
+\usepackage{array}
+\usepackage[latin1]{inputenc}
+\usepackage{hyperref}     %desactivar para link rojos
+\usepackage{graphicx}
+\usepackage{dcolumn} % for R tables
+\usepackage{multirow} % For multirow in tables
+\usepackage{pifont}
+\usepackage{listings}
+
+
+
+
+% hypothesis / theorem package begin
+\usepackage{amsthm}
+\usepackage{thmtools}
+\declaretheoremstyle[
+spaceabove=6pt, spacebelow=6pt,
+headfont=\normalfont\bfseries,
+notefont=\mdseries, notebraces={(}{)},
+bodyfont=\normalfont,
+postheadspace=0.6em,
+headpunct=:
+]{mystyle}
+\declaretheorem[style=mystyle, name=Hypothesis, preheadhook={\renewcommand{\thehyp}{H\textsubscript{\arabic{hyp}}}}]{hyp}
+
+\usepackage{cleveref}
+\crefname{hyp}{hypothesis}{hypotheses}
+\Crefname{hyp}{Hypothesis}{Hypotheses}
+% hypothesis / theorem package end
+
+
+%----------------------------------------------------------------------------------------
+% Other ADDS-ON
+%----------------------------------------------------------------------------------------
+
+% independence symbol \independent
+\newcommand\independent{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+
+
+
+
+
+
+
+\hypersetup{
+    bookmarks=true,         % show bookmarks bar?
+    unicode=false,          % non-Latin characters in Acrobat's bookmarks
+    pdftoolbar=true,        % show Acrobat's toolbar?
+    pdfmenubar=true,        % show Acrobat's menu?
+    pdffitwindow=true,     % window fit to page when opened
+    pdfstartview={FitH},    % fits the width of the page to the window
+    pdftitle={My title},    % title
+    pdfauthor={Author},     % author
+    pdfsubject={Subject},   % subject of the document
+    pdfcreator={Creator},   % creator of the document
+    pdfproducer={Producer}, % producer of the document
+    pdfkeywords={keyword1} {key2} {key3}, % list of keywords
+    pdfnewwindow=true,      % links in new window
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=ForestGreen,          % color of internal links (change box color with linkbordercolor)
+    citecolor=ForestGreen,        % color of links to bibliography
+    filecolor=ForestGreen,      % color of file links
+    urlcolor=ForestGreen           % color of external links
+}
+
+%\usepackage[nodayofweek,level]{datetime} % to have date within text
+
+\newcommand{\LETT}[3][]{\lettrine[lines=4,loversize=.2,#1]{\smash{#2}}{#3}} % letrine customization
+
+
+
+% comments on margin
+  % Select what to do with todonotes: 
+  % \usepackage[disable]{todonotes} % notes not showed
+  \usepackage[draft]{todonotes}   % notes showed
+  % usage: \todo{This is a note at margin}
+
+\usepackage{cooltooltips}
+
+%%% bib begin
+\usepackage[american]{babel}
+\usepackage{csquotes}
+\usepackage[backend=biber,style=authoryear,dashed=false,doi=false,isbn=false,url=false,arxiv=false]{biblatex}
+%\DeclareLanguageMapping{american}{american-apa}
+\addbibresource{/Users/hectorbahamonde/Bibliografia_PoliSci/library.bib} 
+\addbibresource{/Users/hectorbahamonde/Bibliografia_PoliSci/Bahamonde_BibTex2013.bib} 
+
+% USAGES
+%% use \textcite to cite normal
+%% \parencite to cite in parentheses
+%% \footcite to cite in footnote
+%% the default can be modified in autocite=FOO, footnote, for ex. 
+%%% bib end
+
+\usepackage{fancyhdr} % Headers and footers
+\pagestyle{fancy} % All pages have headers and footers
+\fancyhead{} % Blank out the default header
+\fancyfoot{} % Blank out the default footer
+\fancyhead[C]{Regression Discontinuity Designs: Fuzzy} % Custom header text
+\fancyfoot[RO,LE]{\thepage} % Custom footer text
+
+
+\begin{document}
+% DOCUMENT ID
+%----------------------------------------------------------------------------------------
+%	CONTENT
+%----------------------------------------------------------------------------------------
+
+%\graphicspath{
+%{/Users/hectorbahamonde/RU/Term5/Experiments_Redlawsk/Experiment/Data/}
+%}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% begin knitr stuff
+<<setup, include=FALSE, cache=F>>=
+if (!require("pacman")) install.packages("pacman"); library(pacman)
+p_load(knitr)
+set.seed(2020)
+options(scipen=9999999)
+if (!require("pacman")) install.packages("pacman"); library(pacman) 
+@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+\hspace{-5mm}{\bf Profesor}: H\'ector Bahamonde, PhD.\\
+\texttt{e:}\href{mailto:hector.bahamonde@uoh.cl}{\texttt{hector.bahamonde@uoh.cl}}\\
+\texttt{w:}\href{http://www.hectorbahamonde.com}{\texttt{www.hectorbahamonde.com}}\\
+{\bf Curso}: MLE.\\
+\hspace{-5mm}{\bf TA}: Gonzalo Barr\'ia.
+
+
+\section*{Regression Discontinuity Designs (RDDs)---Fuzzy Designs}
+
+Motivemos el modelo RDD general:
+
+\begin{equation}\label{eq:1}
+y_{i} \;=\; \beta_{0} + \beta_{1}x_{i} + \pi z_{i} + \rho x_{i}z_{i} + \epsilon_{i}
+\end{equation}
+
+En los dise\~nos RDD \emph{sharp} existe una relaci\'on \emph{determinista} en c\'omo $z$ clasifica a $x$ \parencite[202]{Hahn2001a}:
+
+
+\begin{center}
+$z_{i} = \left \{ 
+\begin{matrix}\label{det:1}
+     1 & \text{si} \; x \le \text{corte} \\
+     0 & \text{si} \; x > \text{corte}
+
+\end{matrix}\right. $
+\end{center}
+
+Ya sabemos que el corte no es aleatorio. Pero en los dise\~nos \emph{fuzzy} $z$ no es determinista, si no que hay variables adicionales que son anteriores a $z$ que operan en la clasificaci\'on de $x$. 
+
+\paragraph{El problema}El problema substantivo detr\'as del $z$ en un \emph{fuzzy design} es que hay un problema de ``\emph{compliance}'': no todos los sujetos involucrados en el dise\~no ``cumplen'' con su r\'egimen experimental esperado. Por ejemplo, los sujetos que debieran haber tomado el tratamiento, no lo hicieron (el experimento sali\'o mal!). O tambi\'en, el experimentador no ten\'ia las herramientas para ``forzar'' la clasificaci\'on experimental. 
+
+\paragraph{Ejemplo 1}Imag\'inate que estudiando campa\~nas pol\'iticas env\'ias por carta un tr\'iptico con informaci\'on sobre una campa\~na. Despu\'es, la idea es llamar por tel\'efono a hogares de control (sin tr\'iptico) y tratamiento (con tr\'iptico) y hacerles una encuesta. \emph{Qu\'e pasa si aquellos que debieran haber sido tratados no leyeron el tr\'iptico?} Esas personas debieran haber sido ``tratadas'', pero dado que no leyeron el folleto, ahora est\'an en el r\'egimen de control. Aqu\'i el experimentador no puede forzar la lectura del folleto. 
+
+\paragraph{Ejemplo 2}Otro tipo de dise\~nos fuzzy \emph{no} tiene que ver con errores en el proceso de dise\~no experimental. Por ejemplo, \textcite[244]{ErikMe2014} se interes\'o en si el grado en que los partidos pol\'iticos isl\'amicos afectaba el empoderamiento femenino. Aqu\'i el eje $x$ es el margen por el que los partidos isl\'amicos ganan las elecciones, y el eje $y$ es la participaci\'on de mujeres que asiste al colegio. En este caso es f\'acil ver que existir\'a un \emph{overlap} entre las observaciones, no existiendo una clasificaci\'on determinista entre quienes recibe el ``tratamiento'' y quienes no.
+
+Entonces, \emph{fuzzy} va m\'as all\'a de errores en la administraci\'on del tratamiento.
+
+\paragraph{Soluci\'on} Existen dos maneras de analizar este tipo de datos:
+
+\begin{enumerate}
+  \item Instrumental Variables y 2SLS.
+  \item Regresi\'on Lineal Local (``\emph{local linear regression}'').
+\end{enumerate}
+
+\section{Estimador}
+
+En los dise\~nos \emph{sharp} trabajamos con el ATE o ATT. Sin embargo, en los dise\~nos \emph{fuzzy} no existe ``\emph{perfect compliance}''. Es por esto que debemos trabajar con otro estimador, el \emph{Intention-to-treat effects} o \emph{ITT}. Este estimador no se concentra en quien recibi\'o el tratamiento, sino en quien nosotros ``\emph{intent\'abamos}'' tratar.
+
+El ITT es m\'as sencillo y realista. En general se entiende que el \emph{ITT} es la diferencia entre los sujetos $y_{1}$ bajo r\'egimen de tratamiento $z(1)$ y los sujetos $y_{0}$ bajo r\'egimen de control $z(0)$, independiente de problemas ``\emph{compliance}'' y otros posibles problemas que puedan existir. Al obviar todas las posibles alternativas que podr\'ian haber salido mal (\emph{compliance}, por ej.), el \emph{ITT} mide la \emph{elegibilidad} al tratamiento ($z_{1}$), independiente de si se trata de $y_{1}$ o $y_{0}$.
+
+%https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3159210/?report=reader
+
+\section{Instrumental Variables y 2SLS}
+
+Dado que $z$ asigna 0's o 1's con cierta \emph{probabilidad} (i.e. no \emph{deterministamente}), el ``no-cumplimiento'' es posible de ser modelado. De hecho, \textcite[]{Hahn2001a} demuestran que $z$ puede ser estimado de la misma manera que una {\bf variable instrumental} v\'ia a \emph{two-stage least square design} (2SLS). 
+
+La manera en que hacemos esto es que estimamos $z$ como funci\'on de $x$ en la primera etapa. Despu\'es, se obtiene $\hat z$. En la segunda etapa se estima $y$ como funci\'on de $x$ y $\hat z$.
+
+Es decir, en la primera etapa se estima \autoref{et:1}
+
+\begin{equation}\label{et:1}
+z_{i} \;=\; \beta_{0} + \beta_{1}x_{i} + \epsilon_{i}
+\end{equation}
+
+y en la segunda etapa se estima \autoref{et:2}
+
+\begin{equation}\label{et:2}
+y_{i} \;=\; \beta_{0} + \beta_{1}x_{i} + \pi \hat z_{i} + \epsilon_{i}
+\end{equation}
+
+
+Cocinemos unos datos. En esta parte usaremos el paquete \texttt{rddtools} que se encarga de estimar el modelo v\'ia 2SLS.
+
+<<chunk:1, echo = TRUE, warning = FALSE, message = F, fig.align='center', fig.width=6, fig.height=3,dpi=1000,cache=F, include = TRUE>>=
+mu <- c(0, 0) # los promedios de ambos vectores
+sigma <- matrix(c(1, 0.7, 0.7, 1), ncol = 2) # una matriz de varianza-covarianza
+p_load(MASS)
+d <- as.data.frame(mvrnorm(2000, mu, sigma)) # creamos la base de datos
+colnames(d) <- c("x", "y") # le cambiamos los nombres
+corte = 0 # definir el corte
+d$z <- ifelse(d$x <  corte, 0, 0.8) # introducimos FUZZYNESS 
+# Si d$x < corte, z es 0 con un 100% de probabilidad.
+# Si d$x > corte, z es 1 con un 80% de probabilidad. 
+# "Compliance"!
+@
+
+Aqu\'i hemos cocinado datos multivariados usando la funci\'on \texttt{mvrnorm} (\emph{multivariate random normal}). Como es multivariada, tendremos m\'as de un vector (en este caso dos). 
+
+Hasta ahora \texttt{d\$z} es un vector de probabilidades (0, y .8). 
+
+<<chunk:2, echo = TRUE, warning = FALSE, message = F, fig.align='center', fig.width=6, fig.height=3,dpi=1000,cache=F, include = TRUE>>=
+table(d$z)
+@
+
+Metamos ese vector de probabilidades en una funci\'on para convertirlos en 0's y 1's
+
+<<chunk:3, echo = TRUE, warning = FALSE, message = F, fig.align='center', fig.width=6, fig.height=3,dpi=1000,cache=F, include = TRUE>>=
+d$z <- sapply(X = d$z, FUN = function(x) rbinom(1, 1, prob = x)) # funcion
+@
+
+Ve\'amos c\'omo qued\'o:
+
+<<chunk:4, echo = TRUE, warning = FALSE, message = F, fig.align='center', fig.width=6, fig.height=3,dpi=1000,cache=F, include = TRUE>>=
+table(d$z)
+@
+
+Ahora fabriquemos el efecto de $z$ en $y$, y digamos que es $2$ (combinaci\'on lineal).
+
+<<chunk:5, echo = TRUE, warning = FALSE, message = F, fig.align='center', fig.width=6, fig.height=3,dpi=1000,cache=F, include = TRUE>>=
+d$y <- d$y + d$z * 2
+@
+
+Ahora grafiqu\'emos
+
+<<chunk:6, echo = TRUE, warning = FALSE, message = F, fig.align='center', fig.width=6, fig.height=6,dpi=1000,cache=F, include = TRUE>>=
+plot(d$x, d$y,
+     col = c("steelblue", "darkred")[factor(d$z)],  # asignar color para z(1) y z(0)
+     pch= 20, # geometria de los circulos
+     cex = 0.5, # tamano de los circulos
+     xlab = "x",
+     ylab = "y")
+# linea vertical 
+abline(v = 0, lty = 2)
+@
+
+Ahora que tenemos los datos listos, estimemos el modelo.
+
+<<chunk:7, echo = TRUE, warning = FALSE, message = F, fig.align='center', fig.width=6, fig.height=6,dpi=1000,cache=F, include = TRUE>>=
+# Estimar Fuzzy RDD
+p_load(rddtools)
+# declarar que objeto "d" es un data frame de RDD
+data <- rdd_data(d$y, d$x, 
+                 cutpoint = corte, 
+                 z = d$z 
+                 )
+# veamos
+head(data)
+# Estimar modelo fuzzy RDD
+rdd_reg_lm(rdd_object = data, slope = "same")
+# En este caso, D es el efecto causal, o rho. Es aprox. 2. 
+@
+
+
+\section{\emph{Local Linear Regression}}
+
+Otra manera de estimar es estimando un modelo justo en el corte. Este es un enfoque que usa s\'olo las observaciones cerca del corte---i.e. una regresi\'on \emph{local}---en una especie de ``mini regresi\'on''. 
+
+\begin{itemize}
+	\item El problema es que perdemos poder estadistico ({\color{red}?}).
+	\item El supuesto es que las observaciones que rodean el corte son muy similares en cuanto a sus valores de $x$. {\color{red}Por que es esto importante?} En base a este supuesto se construye el \emph{contrafactual}. 
+\end{itemize}
+
+Si quisi\'eramos estimar una regresi\'on local, la primera pregunta ser\'ia cu\'an ancho o delgado es nuestro ``ancho de banda'' (o ``\emph{bandwidth}''). Afortunadamente \textcite{Imbens2012} desarrollaron un estimador que encuentra el ``ancho de banda'' m\'as \'optimo al rededor del corte. Ellos demuestran que usando s\'olo esas observaciones al rededor del corte se minimizan los errores cuadrados del (``mini'') modelo. Este estimador est\'a contenido en la funci\'on \texttt{IKbandwidth} del paquete \texttt{rdd}. 
+
+<<chunk:8, echo = TRUE, warning = FALSE, message = F, fig.align='center', fig.width=6, fig.height=6,dpi=1000,cache=F, include = TRUE>>=
+p_load(rdd)
+band <- IKbandwidth(d$x, d$y)
+band # ancho de banda optimo
+# corta la base segun el ancho de banda optimo.
+# nos quedamos solo con los valores determinados por ``band'' por lado
+d_rdd  <- d[d$x < band & d$x > -band, ] 
+# veamos la max y min de x de la nueva base datos cortada
+summary(d_rdd) # base cortada
+# estimamos el modelo (la mini regres.) con la base cortada d_rdd
+linear_rdd_model <- lm(y ~ x + z, data=d_rdd)
+summary(linear_rdd_model) # z es el efecto cuasi causal local del ``tratamiento''
+@
+
+En este caso, \texttt{IKbandwidth} estima que debemos seleccionar valores en $x$ entre \Sexpr{band} a la izquierda del corte, y \Sexpr{band} a la derecha del corte. Es decir, si el corte es $10$, debemos hacer una nueva base de datos cuyos valores de $x$ est\'en comprendidos entre $10-\Sexpr{band}$= $\Sexpr{10-band}$ (``para la izquierda'') y $10+\Sexpr{band}$= $\Sexpr{10+band}$ (``para la derecha'').
+
+
+<<output, echo = TRUE, warning = FALSE, message = F, fig.align='center', fig.width=6, fig.height=3,dpi=1000,cache=F, include = TRUE>>=
+knitr::purl('RDD_Fuzzy.Rnw')
+Stangle('RDD_Fuzzy.Rnw')
+@
+
+%\newpage
+\paragraph{}
+\paragraph{}
+\pagenumbering{Roman}
+\setcounter{page}{1}
+\printbibliography
+
+
+
+
+
+
+\end{document}
+
+# https://dimewiki.worldbank.org/wiki/Regression_Discontinuity
