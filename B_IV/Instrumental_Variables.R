@@ -50,7 +50,7 @@ pairs(~log.precio+log.cantidad+log.impuesto,data=CigarettesSW, main="Scatterplot
 
 # Veamos
 ## Paso 0. Veamos primero si tenemos un problema: Estan los residuos del modelo Precio ~ Cantidad relacionados con Precio?
-residuals.ols = as.numeric(lm(log.cantidad ~ log.precio , CigarettesSW)$residuals)
+residuals.ols = as.numeric(lm(log.cantidad ~ log.precio, CigarettesSW)$residuals)
 
 ####################################################
 # Wait... CUAL ES EL SUPUESTO DEL SUPUESTO AQUI?
@@ -88,7 +88,12 @@ CigarettesSW$z.hat <- z.hat
 second.s = lm(log.cantidad~z.hat,data=CigarettesSW)
 summary(second.s)
 
-# OK, el coeficiente asociado a z.hat debiera no estar sesgado.
+# Diagnosticos
+plot(CigarettesSW$log.cantidad, second.s$residuals)
+cor(CigarettesSW$log.cantidad, second.s$residuals)
+
+
+# No hemos mejorado tanto nuestra situacion.
 
 ####################################################
 # 2SLS via "ivreg"
