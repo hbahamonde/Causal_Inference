@@ -11,8 +11,8 @@
 
 # Que otras relaciones endogenas existen?
 
-# Afortunadamente, existen herramientas econometricas que nos podrian ayudar este problema de 
-# "reverse causality". Es un problema. Si estimamos Y ~ X, dado que Y --> X, el residuo de Y ~ X esta 
+# Afortunadamente, existen herramientas econometricas que nos podrian ayudar en este problema de 
+# "reverse causality". Es un problema. Si estimamos Y ~ X, y dado que Y --> X, el residuo de Y ~ X esta 
 # correlacionado con Y. 
 
 # Ese es el tema de esta clase: variables instrumentales que se estiman a traves de 2SLS.
@@ -21,11 +21,17 @@
 
 # Estimemos Variables Instrumentales
 
-## Pensemos en la relacion que hay entre CANTIDAD y PRECIO: es endogena? Quien va primero? Que instrumento podemos encontrar?
+## Pensemos en la relacion que hay entre CANTIDAD y PRECIO: es endogena? Quien va primero? 
+### Que instrumento podemos encontrar?
 
-library(AER)
+cat("\014")
+rm(list=ls())
+
+if (!require("pacman")) install.packages("pacman"); library(pacman) 
+p_load(AER)
 
 options(scipen=100000000)
+
 data(CigarettesSW) # carguemos la base
 head(CigarettesSW) # mostremos un poco la base
 
@@ -99,10 +105,11 @@ cor(CigarettesSW$log.cantidad, second.s$residuals)
 # 2SLS via "ivreg"
 ####################################################
 
+# ivreg package: y ~ x1 | z1
 iv.reg = ivreg(log.cantidad~log.impuesto|log.precio,data=CigarettesSW)
 summary(iv.reg)
 
 # Comparemos todo en una tabla
 
-library(texreg)
+p_load(texreg)
 screenreg(list(second.s,iv.reg)) # Que vemos (punto de los logs).
