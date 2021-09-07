@@ -21,7 +21,8 @@
 
 # Estimemos Variables Instrumentales
 
-## Pensemos en la relacion que hay entre CANTIDAD y PRECIO: es endogena? Quien va primero? 
+## Pensemos en la relacion que hay entre CANTIDAD y PRECIO: es endogena? 
+### Quien va primero? Si sube la cantidad, baja el precio y si baja el precio, baja la cantidad.
 ### Que instrumento podemos encontrar?
 
 cat("\014")
