@@ -29,7 +29,7 @@ cat("\014")
 rm(list=ls())
 
 if (!require("pacman")) install.packages("pacman"); library(pacman) 
-p_load(AER)
+p_load(AER) # American Economic Review
 
 options(scipen=100000000)
 
