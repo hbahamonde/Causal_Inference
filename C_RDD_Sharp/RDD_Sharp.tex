@@ -208,9 +208,9 @@ y_{i} \;=\; \beta_{0} + \beta_{1}x_{i} + \pi z_{i} + \rho x_{i}z_{i} + \epsilon_
 donde $y_{i}$ es la variable dependiente, $\beta_{0}$ es el intercepto y $\epsilon_{i}$ es el residuo para la observaci\'on $i$. Adem\'as, $\beta_{1}$ es el efecto asociado a cierta variable de control $x$. Importantemente, existen dos maneras de ver (cuasi) causalidad en \autoref{eq:1}:
 
 \begin{enumerate}
-	\item {\bf ``Cambio en el intercepto''}: Se observa al ver el efecto y significancia de $\pi$ que es el par\'ametro a estimar asociado al tratamiento (o ``intercepto'') $z$. Considera que un dise\~no RDD tambi\'en denomina ``intercepto'' a la variable $z$ (adem\'as de $\beta_{0}$). Esto es correcto toda vez que \emph{un} intercepto es el valor asociado a cuando todos los $x's $ son cero. De hecho, cuando estudiemos \emph{fixed effects}, veremos que es posible estimar muchos interceptos. En el caso de los RDD, s\'olo estimamos un intercepto adicional ($z$).
+	\item {\bf ``Cambio en el intercepto''} ($\pi$): Se observa al ver el efecto y significancia de $\pi$ que es el par\'ametro a estimar asociado al tratamiento $z$. Considera que un dise\~no RDD tambi\'en denomina ``intercepto'' a la variable $\pi$ (adem\'as de $\beta_{0}$). Esto es correcto toda vez que \emph{un} intercepto es el valor asociado a cuando todos los $x's $ son cero. De hecho, cuando estudiemos \emph{fixed effects}, veremos que es posible estimar muchos interceptos. En el caso de los RDD, s\'olo estimamos un intercepto adicional ($\pi$).
 
-	\item  {\bf ``Cambio en el slope/pendiente''}: este se observa al ver el par\'ametro $\rho$ que representa al efecto estimado \emph{combinado} de la variable tratamiento $z$ {\bf y} la variable control $x$. Matem\'aticamente, esto significa que tendremos un par\'ametro asociado a un {\bf t\'ermino de interacci\'on} de la siguiente forma: $\rho(x_{i}\times z_{i})$. 
+	\item  {\bf ``Cambio en el slope/pendiente''} ($\rho$): este se observa al ver el par\'ametro $\rho$ que representa al efecto estimado \emph{combinado} de la variable tratamiento $z$ {\bf y} la variable control $x$. Matem\'aticamente, esto significa que tendremos un par\'ametro asociado a un {\bf t\'ermino de interacci\'on} de la siguiente forma: $\rho(x_{i}\times z_{i})$. 
 \end{enumerate}
 
 \subsection*{T\'erminos de Interacci\'on}
@@ -235,7 +235,7 @@ Debido a que los efectos (cuasi) causales en los RDDs son (matem\'aticamente hab
 \begin{enumerate}
 	\item {\bf Criterio de corte}. Es importante tomar en cuenta que $z$ {\bf no} est\'a asignado aleatoriamente. En otras palabras, la {\bf discontinuidad} que pudiera existir en $x$ \emph{no} es debido a $z$, sino que {\bf solamente} a $x$---y este es el supuesto. Esto no es precisamente una desventaja. Al contrario, te permite evaluar el efecto de $x$ sobre $y$ en dos grupos distintos ($y(1)$ y $z(0)$). 
 	\\
-	En un experimento propiamente tal, $z$ siempre es aleatorio. En nuestro mundo observacional, sin embargo, esto no es el caso.
+	En un experimento propiamente tal, $z$ siempre es aleatorio. En nuestro mundo observacional, sin embargo, este no es el caso.
 
 	\item {\bf La relaci\'on entre $x$ e $y$ no es mejor explicada por una funcion polynomial} (Fig. 6.1.1 en \emph{Mostly Harmless Econometrics}). El ``salto'' que se produce en $y$ al cambiar de $z(0)$ a $z(1)$ es mejor explicado por $z$ mismo que por ejemplo, una funci\'on polynomial. Esto es, con interacciones, tal y como en \autoref{eq:int:term}, pero esta vez, la variable es multiplicada por s\'i misma (como en \autoref{eq:2}). Un ejemplo de una regresi\'on polynomial permite curvas en la linea, y en general se ven as\'i:
 
@@ -284,15 +284,16 @@ lo que en n\'umeros significa,
 
 \begin{equation} \label{eq:4}
 \begin{split}
-y_{i}(0) &= 54.716 + 5.365(x_{i}-10.5) + \cancel{46.459\times(0)} + \cancel{(-1.101)(x_{i}-10.5) \times (0)} +  \epsilon_{i} \\
-y_{i}(1) &= 54.716 + 5.365(x_{i}-10.5) + 46.459\times(1) + (-1.101)(x_{i}-10.5) \times (1) +  \epsilon_{i}
+y_{i}(0) &= 50.067 + 4.240(x_{i}-10.5) + \cancel{13.776\times(0)} + \cancel{(0.034)(x_{i}-10.5) \times (0)} +  \epsilon_{i} \\
+y_{i}(1) &= 50.067 + 4.240(x_{i}-10.5) + 13.776\times(1) + (0.034)(x_{i}-10.5) \times (1) +  \epsilon_{i}
 \end{split}
 \end{equation}
 
 
-Recuerda que $10.5$ equivale al corte. Es claro ver que \autoref{eq:4} nos muestra el pre-treatment $z(0)$ y el post-treatment $z(1)$. Y eso se ve reflejado en el \emph{output} de \texttt{R}. Si estamos interesados en observar el intercepto $z$, debemos observar el efecto y significancia de $\pi=54.716$, que es altamente significativa. Podemos concluir que hay evidencia suficiente para sugerir que existe un cambio estad\'isticamente significativo en el intercepto.
-
-Hasta ahora, hemos analizado $\pi$. Examinemos $\rho$.
+Recuerda que $10.5$ equivale al corte. Es claro ver que \autoref{eq:4} nos muestra el pre-treatment $z(0)$ y el post-treatment $z(1)$. Y eso se ve reflejado en el \emph{output} de \texttt{R}. Si estamos interesados en observar el intercepto $z$, debemos observar el efecto y significancia de $\pi=13.776$, que es altamente significativa. Podemos concluir que hay evidencia suficiente para sugerir que existe un cambio estad\'isticamente significativo en el intercepto.
+\\
+\\
+Hasta ahora, hemos analizado $\pi$. Ahora examinemos $\rho$.
 
 
 \section*{``Cambio en el slope/pendiente'' ($\rho$)}

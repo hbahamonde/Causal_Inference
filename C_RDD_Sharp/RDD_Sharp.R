@@ -24,6 +24,7 @@ data.1<-data.frame(
 
 
 # desordenar y
+set.seed(2020)
 data.1$y<-jitter(data.1$y,factor=12)
 
 
@@ -60,7 +61,6 @@ analysis1 <- lm(y~I(x-corte)*z,
 
 # Vean que ocupamos el operador "I" (de "Isolate", aislar). "I" aisla todo lo que esta dentro de "I". En este caso, la sustraccion.
 summary(analysis1)
-# Z no tiene un efecto causal 
 
 #########
 #  Cambio en el intercepto
@@ -74,6 +74,7 @@ data.2 <- data.frame(
 )
 
 # desordenar y
+set.seed(2020)
 data.2$y<-jitter(data.2$y,factor=10)
 
 # plot
@@ -113,6 +114,7 @@ data.3 <- data.frame(
         z=(factor(rep(0:1,each=10))))
 
 
+set.seed(2020)
 data.3$y<-jitter(data.3$y,factor=10)
 
 # plot
