@@ -76,7 +76,7 @@ data <- rdd_data(d$y, d$x,
 head(data)
 # Estimar modelo fuzzy RDD
 rdd_reg_lm(rdd_object = data, slope = "same")
-# En este caso, D es el efecto causal, o rho. Es aprox. 2. 
+# En este caso, D es el efecto cuasi causal, o rho. Es aprox. 2. 
 
 
 ###################################################

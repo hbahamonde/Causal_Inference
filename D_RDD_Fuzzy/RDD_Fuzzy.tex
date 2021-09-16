@@ -259,7 +259,8 @@ Ya sabemos que el corte no es aleatorio. Pero en los dise\~nos \emph{fuzzy} $z$ 
 
 \paragraph{Ejemplo 1}Imag\'inate que estudiando campa\~nas pol\'iticas env\'ias por carta un tr\'iptico con informaci\'on sobre una campa\~na. Despu\'es, la idea es llamar por tel\'efono a hogares de control (sin tr\'iptico) y tratamiento (con tr\'iptico) y hacerles una encuesta. \emph{Qu\'e pasa si aquellos que debieran haber sido tratados no leyeron el tr\'iptico?} Esas personas debieran haber sido ``tratadas'', pero dado que no leyeron el folleto, ahora est\'an en el r\'egimen de control. Aqu\'i el experimentador no puede forzar la lectura del folleto. 
 
-\paragraph{Ejemplo 2}Otro tipo de dise\~nos fuzzy \emph{no} tiene que ver con errores en el proceso de dise\~no experimental. Por ejemplo, \textcite[244]{ErikMe2014} se interes\'o en si el grado en que los partidos pol\'iticos isl\'amicos afectaba el empoderamiento femenino. Aqu\'i el eje $x$ es el margen por el que los partidos isl\'amicos ganan las elecciones, y el eje $y$ es la participaci\'on de mujeres que asiste al colegio. En este caso es f\'acil ver que existir\'a un \emph{overlap} entre las observaciones, no existiendo una clasificaci\'on determinista entre quienes recibe el ``tratamiento'' y quienes no.
+\paragraph{Ejemplo 2}Otro tipo de dise\~nos fuzzy \emph{no} tiene que ver con errores en el proceso de dise\~no experimental. Por ejemplo, \textcite[244]{ErikMe2014} se interes\'o en si el grado de penetraci\'on electoral de los partidos pol\'iticos isl\'amicos en Turqu\'ia afectaba el empoderamiento femenino (medido como acceso a educaci\'on de mujeres). Aqu\'i el eje $x$ es el margen por el que los partidos isl\'amicos ganan las elecciones, y el eje $y$ es la participaci\'on de mujeres que asiste al colegio. En este caso es f\'acil ver que existir\'a un \emph{overlap} entre las observaciones, no existiendo una clasificaci\'on determinista entre quienes recibe el ``tratamiento'' y quienes no.
+
 
 Entonces, \emph{fuzzy} va m\'as all\'a de errores en la administraci\'on del tratamiento.
 
@@ -389,7 +390,6 @@ Ahora grafiqu\'emos
 }
 
 
-
 \end{knitrout}
 
 Ahora que tenemos los datos listos, estimemos el modelo.
@@ -433,7 +433,7 @@ Ahora que tenemos los datos listos, estimemos el modelo.
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 \end{verbatim}
 \begin{alltt}
-\hlcom{# En este caso, D es el efecto causal, o rho. Es aprox. 2. }
+\hlcom{# En este caso, D es el efecto cuasi causal, o rho. Es aprox. 2. }
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -448,7 +448,7 @@ Otra manera de estimar es estimando un modelo justo en el corte. Este es un enfo
 	\item El supuesto es que las observaciones que rodean el corte son muy similares en cuanto a sus valores de $x$. {\color{red}Por que es esto importante?} En base a este supuesto se construye el \emph{contrafactual}. 
 \end{itemize}
 
-Si quisi\'eramos estimar una regresi\'on local, la primera pregunta ser\'ia cu\'an ancho o delgado es nuestro ``ancho de banda'' (o ``\emph{bandwidth}''). Afortunadamente \textcite{Imbens2012} desarrollaron un estimador que encuentra el ``ancho de banda'' m\'as \'optimo al rededor del corte. Ellos demuestran que usando s\'olo esas observaciones al rededor del corte se minimizan los errores cuadrados del (``mini'') modelo. Este estimador est\'a contenido en la funci\'on \texttt{IKbandwidth} del paquete \texttt{rdd}. 
+Si quisi\'eramos estimar una regresi\'on local, la primera pregunta ser\'ia cu\'an {\bf ancho} o {\bf angosto} es nuestro ``ancho de banda'' (o ``\emph{bandwidth}''). Afortunadamente \textcite{Imbens2012} desarrollaron un estimador que encuentra el ``ancho de banda'' m\'as \'optimo alrededor del corte. Ellos demuestran que usando s\'olo esas observaciones al rededor del corte se minimizan los errores cuadrados del (``mini'') modelo. Este estimador est\'a contenido en la funci\'on \texttt{IKbandwidth} del paquete \texttt{rdd}. 
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
