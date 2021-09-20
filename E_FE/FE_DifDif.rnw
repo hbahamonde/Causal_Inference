@@ -216,13 +216,15 @@ Aqu\'i en este caso vemos que el estado de Alabama (AL) se repite por varios a\~
 
 Una de las ventajas de la randomizaci\'on es que ``borra'' (o ``ignora'') las caracter\'isticas (observables y no) de $i$ y asigna el tratamiento $z$ independientemente de esas caracter\'isticas (esta es el ``\emph{ignorability assumption}''). Sin embargo, en el mundo observacional (i.e. no experimental) esto no es posible. Qu\'e herramientas podemos usar en el mundo observacional para tratar de aproximarnos al mundo experimental y ``borrar'' las caracter\'isticas individuales de todos los $i$? Recuerda que si los $i$'s son similares, podemos atribuir el efecto causal observado s\'olo a la administraci\'on de $z$. Al ``neutralizar'' la caracter\'isticas individuales de cada $i$, los \emph{fixed effects} hacen justamente eso. 
 
-Supongamos que necesitamos estimar 
+Supongamos que necesitamos estimar \autoref{fe}, 
 
 \begin{equation}\label{fe}
-y_{i} = \beta_{0} + {\mathbf \beta_{1}x_{1}} + {\mathbf \tau}_{i}{\mathbf z}_{i} + \epsilon_{i}
+y_{i} = \beta_{0} +  \beta_{1}x_{1} + {\boldsymbol \tau}_{i}{\mathbf z}_{i} + \epsilon_{i}
 \end{equation}
 
-Este tipo de modelos controla por diferencias no observadas. Cada $i$ tendr\'a su propio intercepto ${\mathbf \tau}_{i}$ que absorber\'a todo lo que no podemos observar de cada $i$. {\color{red}En qu\'e situaciones es esto conveniente?} (``omitted variable'')
+donde ${\mathbf z}_{i}$ es un vector (por eso aparece en negrita!) que identifica a cada panel $i$ para todos los paneles $1, 2, 3...N-1$ ({\color{red} por qu\'e ``-1''?}). 
+
+Este tipo de modelos en \autoref{fe} controla por diferencias no observadas. Cada $i$ tendr\'a su propio intercepto ${\mathbf \tau}_{i}$ que absorber\'a todo lo que no podemos observar de cada $i$. {\color{red}En qu\'e situaciones es esto conveniente?} (hint: ``omitted variable bias'')
 
 Pensemos en el siguiente problema. Quisi\'eramos saber si subiendo los impuestos a la cerveza (\texttt{beertax}) disminuye la cantidad de accidentes de tr\'ansito fatales (\texttt{fatal})---{\color{red}Por qu\'e subiendo los impuestos a la cerveza debiera disminuir la cantidad de accidentes fatales?} Tenemos la base de datos \texttt{Fatalities} que tiene observaciones para todos los estados de Estados Unidos para varios a\~nos. Ve\'amos:
 
@@ -249,11 +251,16 @@ OK. Estimemos esta relaci\'on en una especificaci\'on de \emph{fixed effects}.
 <<f:e2, echo = TRUE, fig.pos='H', fig.cap=NULL, warning = FALSE, message = F, fig.align='center', fig.width=9.746112, fig.height=4.873056,dpi=1000,cache=F, include = TRUE>>=
 model <- plm(fatal ~ beertax, 
                     data = Fatalities,
-                    index = c("state", "year"), 
+                    index = c("state"), 
                     model = "within") # "pooling", "within", "between", "random" "fd", or "ht"
 summary(model)
 @
 
+Ok. Ahora hagamos esto, pero de manera artesanal.
+
+<<f:e3, echo = TRUE, fig.pos='H', fig.cap=NULL, warning = FALSE, message = F, fig.align='center', fig.width=9.746112, fig.height=4.873056,dpi=1000,cache=F, include = TRUE>>=
+summary(lm(fatal ~ beertax + factor(state), data = Fatalities))
+@
 
 
 \section{Difference in Differences}

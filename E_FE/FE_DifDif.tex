@@ -272,13 +272,15 @@ Aqu\'i en este caso vemos que el estado de Alabama (AL) se repite por varios a\~
 
 Una de las ventajas de la randomizaci\'on es que ``borra'' (o ``ignora'') las caracter\'isticas (observables y no) de $i$ y asigna el tratamiento $z$ independientemente de esas caracter\'isticas (esta es el ``\emph{ignorability assumption}''). Sin embargo, en el mundo observacional (i.e. no experimental) esto no es posible. Qu\'e herramientas podemos usar en el mundo observacional para tratar de aproximarnos al mundo experimental y ``borrar'' las caracter\'isticas individuales de todos los $i$? Recuerda que si los $i$'s son similares, podemos atribuir el efecto causal observado s\'olo a la administraci\'on de $z$. Al ``neutralizar'' la caracter\'isticas individuales de cada $i$, los \emph{fixed effects} hacen justamente eso. 
 
-Supongamos que necesitamos estimar 
+Supongamos que necesitamos estimar \autoref{fe}, 
 
 \begin{equation}\label{fe}
-y_{i} = \beta_{0} + {\mathbf \beta_{1}x_{1}} + {\mathbf \tau}_{i}{\mathbf z}_{i} + \epsilon_{i}
+y_{i} = \beta_{0} + {\mathbf \beta_{1}x_{1}} + {\boldsymbol \tau}_{i}{\mathbf z}_{i} + \epsilon_{i}
 \end{equation}
 
-Este tipo de modelos controla por diferencias no observadas. Cada $i$ tendr\'a su propio intercepto ${\mathbf \tau}_{i}$ que absorber\'a todo lo que no podemos observar de cada $i$. {\color{red}En qu\'e situaciones es esto conveniente?} (``omitted variable'')
+donde ${\mathbf z}_{i}$ es un vector (por eso aparece en negrita!) que identifica a cada panel $i$ para todos los paneles $1, 2, 3...N-1$ ({\color{red} por qu\'e ``-1''?}). 
+
+Este tipo de modelos en \autoref{fe} controla por diferencias no observadas. Cada $i$ tendr\'a su propio intercepto ${\mathbf \tau}_{i}$ que absorber\'a todo lo que no podemos observar de cada $i$. {\color{red}En qu\'e situaciones es esto conveniente?} (hint: ``omitted variable bias'')
 
 Pensemos en el siguiente problema. Quisi\'eramos saber si subiendo los impuestos a la cerveza (\texttt{beertax}) disminuye la cantidad de accidentes de tr\'ansito fatales (\texttt{fatal})---{\color{red}Por qu\'e subiendo los impuestos a la cerveza debiera disminuir la cantidad de accidentes fatales?} Tenemos la base de datos \texttt{Fatalities} que tiene observaciones para todos los estados de Estados Unidos para varios a\~nos. Ve\'amos:
 
@@ -341,7 +343,7 @@ OK. Estimemos esta relaci\'on en una especificaci\'on de \emph{fixed effects}.
 \begin{alltt}
 \hlstd{model} \hlkwb{<-} \hlkwd{plm}\hlstd{(fatal} \hlopt{~} \hlstd{beertax,}
                     \hlkwc{data} \hlstd{= Fatalities,}
-                    \hlkwc{index} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{"state"}\hlstd{,} \hlstr{"year"}\hlstd{),}
+                    \hlkwc{index} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{"state"}\hlstd{),}
                     \hlkwc{model} \hlstd{=} \hlstr{"within"}\hlstd{)} \hlcom{# "pooling", "within", "between", "random" "fd", or "ht"}
 \hlkwd{summary}\hlstd{(model)}
 \end{alltt}
@@ -350,7 +352,7 @@ OK. Estimemos esta relaci\'on en una especificaci\'on de \emph{fixed effects}.
 ## 
 ## Call:
 ## plm(formula = fatal ~ beertax, data = Fatalities, model = "within", 
-##     index = c("state", "year"))
+##     index = c("state"))
 ## 
 ## Balanced Panel: n = 48, T = 7, N = 336
 ## 
@@ -373,6 +375,82 @@ OK. Estimemos esta relaci\'on en una especificaci\'on de \emph{fixed effects}.
 \end{kframe}
 \end{knitrout}
 
+Ok. Ahora hagamos esto, pero de manera artesanal.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{summary}\hlstd{(}\hlkwd{lm}\hlstd{(fatal} \hlopt{~} \hlstd{beertax} \hlopt{+} \hlkwd{factor}\hlstd{(state),} \hlkwc{data} \hlstd{= Fatalities))}
+\end{alltt}
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = fatal ~ beertax + factor(state), data = Fatalities)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -468.76  -30.19    0.32   33.59  520.44 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value             Pr(>|t|)    
+## (Intercept)      1736.70     162.02  10.719 < 0.0000000000000002 ***
+## beertax          -471.55      97.13  -4.855 0.000001982110200010 ***
+## factor(state)az  -725.88     137.88  -5.265 0.000000275892844825 ***
+## factor(state)ar  -884.21     113.25  -7.808 0.000000000000109703 ***
+## factor(state)ca  3353.73     157.37  21.311 < 0.0000000000000002 ***
+## factor(state)co -1046.98     148.58  -7.047 0.000000000013640929 ***
+## factor(state)ct -1162.80     145.05  -8.016 0.000000000000027725 ***
+## factor(state)de -1533.79     151.99 -10.092 < 0.0000000000000002 ***
+## factor(state)fl  1608.23      72.04  22.324 < 0.0000000000000002 ***
+## factor(state)ga   853.83      95.11   8.977 < 0.0000000000000002 ***
+## factor(state)id -1310.20     133.38  -9.823 < 0.0000000000000002 ***
+## factor(state)il   -35.37     150.72  -0.235              0.81461    
+## factor(state)in  -595.94     140.92  -4.229 0.000031603664047815 ***
+## factor(state)ia -1071.54     131.04  -8.177 0.000000000000009476 ***
+## factor(state)ks -1049.26     126.91  -8.268 0.000000000000005124 ***
+## factor(state)ky  -852.05     148.48  -5.738 0.000000024257907095 ***
+## factor(state)la  -427.39      97.55  -4.381 0.000016569762329217 ***
+## factor(state)me -1159.11      98.82 -11.729 < 0.0000000000000002 ***
+## factor(state)md  -913.59     146.44  -6.239 0.000000001578018985 ***
+## factor(state)ma  -917.84     142.76  -6.429 0.000000000533510556 ***
+## factor(state)mi    20.96     122.04   0.172              0.86376    
+## factor(state)mn -1010.16     137.06  -7.370 0.000000000001828891 ***
+## factor(state)ms  -523.70      76.76  -6.823 0.000000000053015450 ***
+## factor(state)mo  -593.66     137.89  -4.305 0.000022923390065195 ***
+## factor(state)mt -1346.25     136.48  -9.864 < 0.0000000000000002 ***
+## factor(state)ne -1273.12     128.89  -9.877 < 0.0000000000000002 ***
+## factor(state)nv -1381.80     147.85  -9.346 < 0.0000000000000002 ***
+## factor(state)nh -1251.03     108.42 -11.539 < 0.0000000000000002 ***
+## factor(state)nj  -699.98     158.84  -4.407 0.000014830660049696 ***
+## factor(state)nm -1028.66     131.50  -7.823 0.000000000000099617 ***
+## factor(state)ny   468.25     154.55   3.030              0.00267 ** 
+## factor(state)nc   336.57      61.96   5.432 0.000000119211618287 ***
+## factor(state)nd -1446.56     131.24 -11.022 < 0.0000000000000002 ***
+## factor(state)oh   114.87     131.24   0.875              0.38215    
+## factor(state)ok  -543.04      87.45  -6.210 0.000000001854066431 ***
+## factor(state)or -1053.59     147.73  -7.132 0.000000000008084405 ***
+## factor(state)pa   220.16     142.76   1.542              0.12414    
+## factor(state)ri -1555.15     151.89 -10.239 < 0.0000000000000002 ***
+## factor(state)sc    81.22      56.87   1.428              0.15438    
+## factor(state)sd -1286.98     108.38 -11.874 < 0.0000000000000002 ***
+## factor(state)tn  -446.26     138.58  -3.220              0.00143 ** 
+## factor(state)tx  2160.12     126.97  17.013 < 0.0000000000000002 ***
+## factor(state)ut -1092.86     101.56 -10.761 < 0.0000000000000002 ***
+## factor(state)vt -1323.31     109.17 -12.122 < 0.0000000000000002 ***
+## factor(state)va  -417.25     105.56  -3.953 0.000097372871549124 ***
+## factor(state)wa  -892.97     146.57  -6.093 0.000000003566443570 ***
+## factor(state)wv -1091.78     127.51  -8.562 0.000000000000000685 ***
+## factor(state)wi  -890.37     151.99  -5.858 0.000000012809945174 ***
+## factor(state)wy -1551.84     161.79  -9.592 < 0.0000000000000002 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 98.17 on 287 degrees of freedom
+## Multiple R-squared:  0.9905,	Adjusted R-squared:  0.989 
+## F-statistic: 625.8 on 48 and 287 DF,  p-value: < 0.00000000000000022
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 
 \section{Difference in Differences}
@@ -403,7 +481,6 @@ Otra herramienta que podemos usar cuando se trata de trabajar con tiempo, es el 
 {\centering \includegraphics[width=\maxwidth]{figure/us:map-1} 
 
 }
-
 
 
 \end{knitrout}
@@ -450,7 +527,6 @@ Ve\'amos un gr\'afico que podr\'ia aclarar lo que queremos.
 {\centering \includegraphics[width=\maxwidth]{figure/dif:dif-1} 
 
 }
-
 
 
 \end{knitrout}
@@ -541,7 +617,6 @@ Cocinemos unos datos.
 }
 
 
-
 \end{knitrout}
 
 Ahora calculemos $\tau$ a mano:
@@ -587,10 +662,9 @@ Nota que $z$ es el \emph{estado} del tratamiento, b\'asicamente un vector de 0's
 \begin{alltt}
 \hlstd{knitr}\hlopt{::}\hlkwd{purl}\hlstd{(}\hlstr{'FE_DifDif.Rnw'}\hlstd{)}
 \end{alltt}
-\begin{verbatim}
-## [1] "FE_DifDif.R"
-\end{verbatim}
-\begin{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in parse\_block(g[-1], g[1], params.src, markdown\_mode): Duplicate chunk label 'setup', which has been used for the chunk:\\\#\# if (!require("{}pacman"{})) install.packages("{}pacman"{}); library(pacman)\\\#\# p\_load(knitr)\\\#\# set.seed(2020)\\\#\# options(scipen=9999999)\\\#\# if (!require("{}pacman"{})) install.packages("{}pacman"{}); library(pacman)}}\begin{alltt}
 \hlkwd{Stangle}\hlstd{(}\hlstr{'FE_DifDif.Rnw'}\hlstd{)}
 \end{alltt}
 \begin{verbatim}

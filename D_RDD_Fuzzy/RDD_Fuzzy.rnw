@@ -329,7 +329,7 @@ rdd_reg_lm(rdd_object = data, slope = "same")
 
 \section{\emph{Local Linear Regression}}
 
-Otra manera de estimar es estimando un modelo justo en el corte. Este es un enfoque que usa s\'olo las observaciones cerca del corte---i.e. una regresi\'on \emph{local}---en una especie de ``mini regresi\'on''. 
+Otra manera de abordar este problema es estimando un modelo justo en el corte. Este es un enfoque que usa s\'olo las observaciones cerca del corte---i.e. una regresi\'on \emph{local}---en una especie de ``mini regresi\'on''. 
 
 \begin{itemize}
 	\item El problema es que perdemos poder estadistico ({\color{red}?}).
